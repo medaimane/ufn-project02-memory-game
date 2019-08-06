@@ -1,33 +1,37 @@
-/**
- * Define a Card class/data structure
- */
 class Card {
-  constructor(index, icon, mode = cardMode.NOT_OPEN_SHOW) {
-    this.index = index;
+  constructor(id, icon, mode = cardMode.NOT_OPEN_SHOW) {
+    this.id = id;
     this.icon = icon;
     this.mode = mode;
     this.cardLiElement = document.createElement('li');
     this.cardIElement = document.createElement('i');
   }
 
+  buildCardHtml = () => {
+    this.cardLiElement.id = this.id;
+    this.cardLiElement.appendChild(this.cardIElement);
+    this.addCardIconClass();
+    this.addCardClass();
+  };
+
   getCardHtml = () => {
     return this.cardLiElement;
   };
 
-  buildCardHtml = () => {
-    this.cardLiElement.appendChild(this.cardIElement);
-    this.addIconClass();
-    this.addCardClass();
+  addCardIconClass = () => {
+    this.cardIElement.className = this.icon;
   };
 
-  addIconClass = () => {
-    this.cardIElement.className = this.icon;
+  setAndSwitchCardMode = mode => {
+    this.mode = mode;
+    this.clearCardClass();
+    this.addCardClass();
   };
 
   addCardClass = () => {
     switch (this.mode) {
       case cardMode.NOT_OPEN_SHOW: {
-        this.cardLiElement.classList.add(cardCalss.card);
+        this.cardLiElement.className = cardCalss.card;
         break;
       }
       case cardMode.MATCHED: {
@@ -41,11 +45,11 @@ class Card {
     }
   };
 
-  clicked = () => {
-
+  clearCardClass = () => {
+    this.cardLiElement.className = '';
   };
 
-  isMatched = card => {
-    return this.icon === card.icon;
+  isMatch = card => {
+    return this.icon === card.icon && this.id !== card.id;
   };
 }
