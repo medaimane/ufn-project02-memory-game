@@ -2,10 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Matching Game</title>
     <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Mohamed Aimane Skhairi <skhairimedaimane@gmail.com>">
+    <meta name="description" content="Udacity frontend developer nanodegree, project: memory game">
+
+    <!-- Title -->
+    <title>Med Aimane Skhairi | Portfolio Site</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+
+    <!-- Stylesheet & fonts -->
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet prefetch">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -22,7 +33,7 @@
         		<li><i class="fa fa-star"></i></li>
         	</ul>
 
-        	<span class="moves">3</span> Moves
+        	<span class="moves">0 Moves</span>
 
             <div class="restart">
                 <div class="timer">
@@ -35,58 +46,17 @@
             </div>
         </section>
 
-        <ul class="deck">
-            <li class="card">
-                <i class="fa fa-diamond"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-paper-plane-o"></i>
-            </li>
-            <li class="card match">
-                <i class="fa fa-anchor"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bolt"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-cube"></i>
-            </li>
-            <li class="card match">
-                <i class="fa fa-anchor"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-leaf"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bicycle"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-diamond"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bomb"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-leaf"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bomb"></i>
-            </li>
-            <li class="card open show">
-                <i class="fa fa-bolt"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bicycle"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-paper-plane-o"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-cube"></i>
-            </li>
-        </ul>
+        <ul class="deck"></ul>
     </div>
 
+    <footer>
+        <p>Made with ❤️ by <a href="https://medaimane.github.io/" target="_blank" rel="noreferrer">Mohamed Aimane Skhairi</a> © 2019</p>
+    </footer>
+
+    <!--SweatAlert library cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <!-- scripts -->
     <script src="js/utils/constants.js"></script>
     <script src="js/classes/Card.js"></script>
     <script src="js/classes/Game.js"></script>

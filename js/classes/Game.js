@@ -15,6 +15,8 @@ class Game {
 
     this.gridFragment = document.createDocumentFragment();
 
+    this.repeatElement = document.querySelector('.fa-repeat');
+
     this.gridOfCardsElement = document.querySelector('.deck');
 
     this.movesCounterElement = document.querySelector(".moves");
@@ -24,7 +26,44 @@ class Game {
     this.hoursTimerElement = document.querySelector(".hour");
     this.minutesTimerElement = document.querySelector(".minute");
     this.secondsTimerElement = document.querySelector(".seconds");
+
+    this.bagde = '';
   }
+
+  startGame = () => {
+    this.buildGridOfCards();
+    this.addClickEventListener();
+  };
+
+  restartGame = () => {
+    // Reset app to initial state:
+    this.timerStarted = false;
+
+    this.moves = 0;
+    this.movesCounterElement.innerHTML = '0 Moves';
+
+    this.cards = [];
+    this.matchedCards = [];
+    this.checkCards = [];
+
+    this.startGame();
+
+    clearInterval(this.timeCounter);
+
+    this.seconds = 0;
+    this.minutes = 0;
+    this.hours = 0;
+    this.secondsTimerElement.innerText = "00";
+    this.minutesTimerElement.innerText = " 00";
+    this.hoursTimerElement.innerText = "00";
+
+    this.resetStartsRating();
+  };
+
+  resetStartsRating = () => {
+    this.starsElements[5].classList.remove('grey-color');
+    this.starsElements[3].classList.remove('grey-color');
+  };
 
   buildGridOfCards = () => {
     const shuffledFaIcons = this.shuffleTwice(faIcons);
@@ -43,6 +82,9 @@ class Game {
   };
 
   addClickEventListener = () => {
+    this.repeatElement.addEventListener('click', () => {
+      this.restartGame();
+    });
     this.gridOfCardsElement.addEventListener('click', event => {
       const cardId = event.target.id;
       if (cardId) {
@@ -61,19 +103,50 @@ class Game {
           this.movesCounter();
           const [card1, card2] = this.checkCards;
           card1.isMatch(card2) ? this.matched() : setTimeout(this.notMatched, 800);
-          this.winGame();
+          this.showWinGameModal();
         }
       }
     });
   };
 
-  winGame = () => {
-    // TODO: ADD sweat alert model
+  showWinGameModal = () => {
     if (this.matchedCards.length === 16) {
-      console.log('Win!!');
-      console.log(this.moves, this.hours, this.minutes, this.seconds);
       clearInterval(this.timeCounter);
+      this.showAlertModal();
     }
+  };
+
+  showAlertModal = () => {
+    const title = `<div>
+        <span><u>Congratulations!</u></span>
+        <span>You made it in ${this.getFormatedTimeElements()}</span>
+        <span>Badge: ${this.bagde}</span>
+        <span>Your moves is ${this.moves}</span>
+    </div>`;
+
+    Swal.fire({
+      title,
+      width: 600,
+      padding: '2em',
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Restart',
+      confirmButtonAriaLabel: 'Thumbs up, great!',
+      cancelButtonText: '<i class="fa fa-thumbs-down"></i> Next time',
+      cancelButtonAriaLabel: 'Thumbs down, Next time',
+      background: '#fff url(img/trees.png)',
+      backdrop: `
+          rgba(0,0,123,0.4)
+          url("img/nyan-cat.gif")
+          center left
+          no-repeat
+        `
+    }).then((result) => {
+      if (result.value) {
+        this.restartGame();
+      }
+    });
   };
 
   setCheckedCard = card => {
@@ -83,7 +156,9 @@ class Game {
   matched = () => {
     const [card1, card2] = this.checkCards;
 
-    this.setMatchedCards(card1, card2);
+    if (card1 && card2) {
+      this.setMatchedCards(card1, card2);
+    }
 
     this.checkCards = [];
 
@@ -93,8 +168,10 @@ class Game {
   notMatched = () => {
     const [card1, card2] = this.checkCards;
 
-    this.closedCard(card1);
-    this.closedCard(card2);
+    if (card1 && card2) {
+      this.closedCard(card1);
+      this.closedCard(card2);
+    }
 
     this.checkCards = [];
 
@@ -129,9 +206,11 @@ class Game {
 
   starsRating = () => {
     if (this.moves === 16) {
-      this.starsElements[5].classList.add('grey');
+      this.bagde = 'Awesome!';
+      this.starsElements[5].classList.add('grey-color');
     } else if (this.moves === 24) {
-      this.starsElements[3].classList.add('grey');
+      this.bagde = 'Not that bad, Replay!';
+      this.starsElements[3].classList.add('grey-color');
     }
   };
 
@@ -164,6 +243,16 @@ class Game {
     this.secondsTimerElement.innerHTML = this.formatTime(this.seconds);
     this.minutesTimerElement.innerHTML = this.formatTime(this.minutes);
     this.hoursTimerElement.innerHTML = this.formatTime(this.hours);
+  };
+
+  getFormatedTimeElements = () => {
+    return `${
+      this.hoursTimerElement.innerHTML
+    } : ${
+      this.minutesTimerElement.innerHTML
+    } : ${
+      this.secondsTimerElement.innerHTML
+    }`;
   };
 
   formatTime = time => {

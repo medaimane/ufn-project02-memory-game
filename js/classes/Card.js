@@ -31,15 +31,15 @@ class Card {
   addCardClass = () => {
     switch (this.mode) {
       case cardMode.NOT_OPEN_SHOW: {
-        this.cardLiElement.className = cardCalss.card;
+        this.cardLiElement.className = cardClass.card;
         break;
       }
       case cardMode.MATCHED: {
-        this.cardLiElement.className = cardCalss.match;
+        this.cardLiElement.className = cardClass.match;
         break;
       }
       case cardMode.OPEN_SHOW: {
-        this.cardLiElement.className = cardCalss.openShow;
+        this.cardLiElement.className = cardClass.openShow;
         break;
       }
     }

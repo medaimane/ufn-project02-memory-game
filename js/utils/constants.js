@@ -17,8 +17,8 @@ const cardMode = {
   OPEN_SHOW: 'OPEN_SHOW',
 };
 
-const cardCalss = {
+const cardClass = {
   card: 'card',
   match: 'card match',
   openShow: 'card open show',
-}
+};
