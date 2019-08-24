@@ -1,7 +1,7 @@
 # Udacity Frontend Nanodegree - Memory Game Project
 
 Project 02 - Build a memory game. 
-[Demo](https://medaimane.github.io/ufn-project01-portfolio-site/)
+[Demo](https://medaimane.github.io/ufn-project02-memory-game/)
 
 ## Table of Contents
 
